@@ -104,14 +104,17 @@ export default function Home() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.details || 'Failed to generate PRD');
+        console.error('❌ PRD API Error:', errorData);
+        throw new Error(errorData.details || errorData.error || `Failed to generate PRD (Status: ${response.status})`);
       }
 
       const { session: updatedSession } = await response.json();
+      console.log('✅ PRD generated, updating UI');
       setSession(updatedSession);
     } catch (err) {
-      console.error('Error generating PRD:', err);
-      setError(err instanceof Error ? err.message : 'Failed to generate PRD');
+      console.error('❌ Error generating PRD:', err);
+      const errorMessage = err instanceof Error ? err.message : 'Failed to generate PRD';
+      setError(`PRD Generation Error: ${errorMessage}`);
     } finally {
       setIsGeneratingPRD(false);
     }
