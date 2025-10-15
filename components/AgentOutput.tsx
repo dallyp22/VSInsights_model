@@ -294,7 +294,7 @@ export default function AgentOutput({ session, onSelectFramework, isGeneratingPR
                   {session.frameworkOutput.frameworkOptions.map((option, idx) => (
                     <div 
                       key={idx} 
-                      className={`framework-card ${option.name === session.frameworkOutput.recommendedFramework ? 'recommended' : ''}`}
+                      className={`framework-card ${option.name === session.frameworkOutput?.recommendedFramework ? 'recommended' : ''}`}
                     >
                       <div className="framework-name">{option.name}</div>
                       <span className="framework-type">{option.approach}</span>
