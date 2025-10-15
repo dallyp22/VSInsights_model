@@ -5,10 +5,11 @@ import { getSession } from '@/lib/orchestrator';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const sessionId = params.id;
+    const { id } = await params;
+    const sessionId = id;
     
     const session = getSession(sessionId);
     
